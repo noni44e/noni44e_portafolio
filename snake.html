@@ -1,0 +1,223 @@
+<title>Snake Javascript </title>
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body{
+                height: %100;
+                margin: 0;
+                display: flex;
+                background-color: #111;
+                justify-content: center;
+            }
+
+            div{
+                margin: 3.5%;
+                justify-content: center;
+            }
+            canvas{
+                display: flex;
+                margin: 0;
+                border: 10px solid #36763f;
+                border-radius: 5px;
+            }
+            
+        </style>
+    </head>
+<body>
+    <div>
+    <canvas id="juego" height="800" width="800"></canvas>
+    </div>
+    <script>
+        const canvas = document.getElementById("juego")
+        const ctx = canvas.getContext("2d")
+        /* variables de la pelota*/
+        const tamaño = 20
+        let x = canvas.width / 2 - tamaño
+        let y = canvas.height/ 2 -tamaño
+
+        /* velocidad de la pelota */
+        let dx = 4
+        let dy = 0
+        let snakebody = []
+        let juegoactivo = true
+
+        let rightPress = false
+        let leftPress = false
+        let downPress = false
+        let upPress = false
+
+        let mx = 100
+        let my = 100
+        let random = 0
+        let contador = 0
+
+        function movimiento() {
+            x += dx
+            y += dy
+        }
+
+        function snake(){
+            ctx.fillStyle = "darkgreen"
+            ctx.fillRect(x, y, tamaño, tamaño)
+
+            ctx.fill()
+
+            movimiento()
+        }
+        function snakea(a,b){
+            ctx.fillStyle = "darkgreen"
+            ctx.fillRect(a, b, tamaño, tamaño)
+            ctx.fill()
+
+            movimiento()
+        }
+
+
+        function colisionesConEntorno() {
+            if ((x > canvas.width - tamaño)){
+                juegoactivo = false
+            } else if (x < 0) {
+                juegoactivo = false
+            }
+            
+            if (y < 0){
+                juegoactivo = false
+            } else if ((y > canvas.height - tamaño)){
+                juegoactivo = false
+            }
+            
+        }
+
+        function initEvents(){
+            document.addEventListener('keydown', keyDownHandler)
+            document.addEventListener('keyup', keyUpHandler)
+
+            function keyDownHandler(event){
+                const { key } = event
+                if (key == 'Right' || key == 'ArrowRight' || key == 'd'){
+                    rightPress = true
+                } else if (key == 'Left' || key == 'ArrowLeft' || key == 'a'){
+                    leftPress = true
+                }
+                if (key == 'Up' || key == 'ArrowUp' || key == 'w'){
+                    upPress = true
+                } else if (key == 'Down' || key == 'ArrowDown' || key == 's'){
+                    downPress = true
+                }
+              }
+            
+            function keyUpHandler(event){
+                const { key } = event
+                if ((key == 'Right') || (key == 'ArrowRight') || (key == 'd')){
+                    rightPress = false
+                } else if (key == 'Left' || key == 'ArrowLeft' || key == 'a')
+                 {
+                    leftPress = false
+                }
+                if (key == 'Up' || key == 'ArrowUp' || key == 'w'){
+                    upPress = false
+                } else if (key == 'Down' || key == 'ArrowDown' || key == 's'){
+                    downPress = false
+                }
+              
+            }  
+        }
+    
+        function snakeMov(){
+            if (dx == 0 && leftPress){
+                dy = 0
+                dx = -4
+            } else if(dy == 0 && upPress){
+                dx = 0
+                dy = -4
+            } else if(dy == 0 && downPress){
+                dx = 0
+                dy = 4
+            } else if (dx == 0 && rightPress){
+                dx = 4
+                dy = 0
+            }
+        }
+
+
+        function manzana(){
+            if (contador == 0){
+                mx = Math.floor(Math.random() * canvas.width-20)
+                my = Math.floor(Math.random() * canvas.height-20)
+                ctx.fillStyle = "red"
+                ctx.fillRect(mx, my, 20, 20)
+                ctx.fill()
+                contador = 1
+            } else if (mx+20 >= x && mx-20 <= x && my+20 >= y && my-20 <= y){
+                mx = Math.floor(Math.random() * (canvas.width-20))
+                my = Math.floor(Math.random() * (canvas.height-20))
+                ctx.fillStyle = "red"
+                ctx.fillRect(mx, my, 20, 20)
+                ctx.fill()
+                contador += 1
+                cordx = mx
+                cordy = my
+                snakebody.push([x, y])
+            } else {
+                ctx.fillStyle = "red"
+                ctx.fillRect(mx, my, 20, 20)
+                ctx.fill()
+            }
+        }
+
+        function snaketamMov(){
+            
+            snakebody.unshift([x,y])
+            if(snakebody.length > contador + 1) {
+                snakebody.pop()
+            }
+            
+            for (let i = 0; i < snakebody.length; i++) {
+                let [sx, sy] = snakebody[i]
+                ctx.fillStyle = "darkgreen"
+                ctx.fillRect(sx, sy, tamaño, tamaño)
+                }
+            }   
+        
+            function verifica() {
+                if (contador > 1) {
+                let [a, b] = snakebody[0]
+
+                for (let i = snakebody.length - 1; i > 0; i--) {
+                    let [c, d] = snakebody[i]
+
+                    if (a === c && b === d) {
+                        juegoactivo = false
+                        return
+                    }
+                    }
+                }   
+            }
+
+        function dibujo(){
+            if(!juegoactivo) return
+            console.log({rightPress, upPress, downPress, leftPress})
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            snaketamMov()
+            snake()
+            snakeMov()
+            colisionesConEntorno()
+            manzana()
+            verifica()
+
+
+            requestAnimationFrame(dibujo)
+        }
+        dibujo()
+        initEvents()
+        verifica()
+        
+
+
+    </script>
+
+</body>
+</html>

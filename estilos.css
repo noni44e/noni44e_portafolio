@@ -1,0 +1,136 @@
+html{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, rgb(111, 40, 192), rgb(175, 148, 108));
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+}
+
+/*perfil*/
+
+h1{
+    margin: 0;
+    font-family: arial;
+}
+
+.nom{
+    color: #eee;
+}
+
+#contenedor{
+    display: flex;
+    padding-bottom: 5%;
+}
+
+p{
+    font-size: 2em;
+    font-family: 'Times New Roman';
+    margin: 100px;
+    height: 80%;
+    width: 80%;
+}
+
+#contenedor #textoPerfil{
+    white-space: pre-line;
+    display: flex;
+    flex: .98;
+    justify-content: center;
+    align-items: center;
+}
+
+#titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    background-color: rgb(111, 40, 192);
+    height: 5em;
+    width: 100%;
+    color: rgb(58, 16, 49);
+}
+
+img, #imagenPerfil{
+    width: 20em;
+    height: 20em;
+    background-color: #ffffff;
+    border-radius: 30px;
+    border-top-left-radius: 0;
+    opacity: 0.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#textoPerfil{
+    opacity: 0;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 40em;
+    height: 20em;
+    background-color: rgba(0, 0, 0, 0.26);
+    margin-left: 2em;
+    padding-left: 2em;
+    display: flex;
+}
+
+#textoPerfil:hover {
+    opacity: 1;
+}
+
+/*proyectos*/
+
+button{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-radius: 6px;
+    border-color: white;
+    width: 120px;
+    height: 40px;
+}
+
+#proyecto{
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.tarjeta{
+    display: flex;
+    gap: 10px;
+}
+
+.proyectos{
+    position: relative;
+    flex: 1;
+    padding: 5rem;
+    border: 1px solid #a59292;
+    border-radius: 4px;
+    height: 100px;
+    width: 100px;
+    background-color: #777;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    
+}
+
+.proyectos img{
+    opacity: 1;
+    display: flex;
+    border: 1px solid #a59292;
+    border-radius: 4px;
+    height: 250%;
+    width: 250%;
+}

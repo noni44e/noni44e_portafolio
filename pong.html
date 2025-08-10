@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping-Pong</title>
+
+    <style>
+        body{
+            margin-top: 2%;
+            display: flex; 
+            background-color: #36763b;
+            justify-content: center;
+        }
+        canvas{
+            display: flex;
+            background-color: #111;
+            border: 10px solid #999;
+            border-radius: 5px;
+
+        }
+
+
+
+    </style>
+
+</head>
+
+<body>
+    <canvas id = "juego" height="900" width="600"></canvas>
+    <script>
+        //canvas y contexto
+        const canvas = document.getElementById("juego")
+        const ctx = canvas.getContext("2d")
+        const tamañopala = 50
+        let x = (canvas.width / 2) - 35
+        let x2 = (canvas.width / 2) - 35
+        let x3 = (canvas.width / 2) - 35
+        let y3 = canvas.height / 2 
+        let y1 = canvas.height * 0.10
+        let y2 = canvas.height * (0.9)
+
+        //velocidad de la pelota
+        let dpx = 4
+        let dpy= 4
+        //velocidades de las paletas
+        let dx = 0
+        let dx2 = 0
+        
+        
+        let juegoactivo = true
+
+        //controles
+        let rPress = false
+        let lPress = false
+        let dPress = false
+        let uPress2 = false
+        let rPress2 = false
+        let lPress2 = false 
+
+        //contadores
+        let contador1 = 0
+        let contador2 = 0
+        let colisiones = 0
+
+        //jugadores
+        let jugador1 = []
+        let jugador2 = []
+        
+
+        //posicion
+        function movimientoPaletas(){
+            x += dx
+            x2 += dx2
+        }
+        //control de movimiento
+        function paletaMov(){
+            if (x+70 < canvas.width && rPress){
+                dx = 5
+            } else if (x > 0 && lPress){
+                dx = -5
+            } else {
+                dx = 0
+            }
+            if (x2+70 < canvas.width && rPress2){
+                dx2 = 5
+            } else if (x2 > 0 && lPress2){
+                dx2 = -5
+            } else {
+                dx2 = 0
+            }
+        }
+
+        function paletas(){
+
+            ctx.fillStyle = "#822"
+            ctx.fillRect(x, y1, 70, 10)
+            
+            ctx.fillStyle = "#388"
+            ctx.fillRect(x2, y2, 70, 10)
+            
+        }
+
+        function initEvents(){
+            document.addEventListener('keydown', keyDownHandler)
+            document.addEventListener('keyup', keyUpHandler)
+
+            function keyDownHandler(event){
+                const { key } = event
+                if (key == 'ArrowRight' || key == 'Right'){
+                    rPress = true
+                } else if (key == 'ArrowLeft' || key == 'Left'){
+                    lPress = true
+                } else if (key == 'ArrowDown' || key == 'Down'){
+                    dPress = true
+                }
+                if (key == 'd'){
+                    rPress2 = true
+                } else if (key == 'a'){
+                    lPress2 = true
+                } else if (key == 'w'){
+                    uPress2 = true
+                }
+            }
+
+            function keyUpHandler(event){
+                const { key } = event
+                if (key == 'ArrowRight'){
+                    rPress = false
+                } else if (key == 'ArrowLeft'){
+                    lPress = false
+                } else if (key == 'ArrowDown'){
+                    dPress = false
+                }
+                if (key == 'w'){
+                    uPress2 = false
+                } else if (key == 'a'){
+                    lPress2 = false
+                } else if (key == 'd'){
+                    rPress2 = false
+                }
+            }
+        }
+
+        function movpelota(){
+            x3 += dpx
+            y3 += dpy
+        }
+
+        function colisionPelota(){
+            if (x3 < 1){
+                dpx = 4
+            } else if( x3 > canvas.width - 20){
+                dpx = -4
+            }
+            if (y2-20 == y3 && x3 >= x2 && x3 <= x2+70){
+                dpy = -4
+            } 
+            if ((y1 == y3) && (x3 >= x && x3 <= x+70)){
+                dpy = 4
+            }
+        }
+
+        function pelota(){
+            ctx.fillRect(x3, y3, 20, 20)
+            colisionPelota()
+            movpelota()
+        }
+
+
+
+
+        function dibujo(){
+            if (!juegoactivo) return
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            
+            movimientoPaletas()
+            paletaMov()
+            paletas()
+            pelota()
+            
+
+            requestAnimationFrame(dibujo)
+        }
+        
+        dibujo()
+        initEvents()
+
+
+
+
+
+    </script>
+
+    
+</body>
+</html>
