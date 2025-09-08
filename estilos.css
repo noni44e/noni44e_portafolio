@@ -1,5 +1,6 @@
 html{
-    height: 100%;
+    min-height: 100vh;
+    min-width:100vh;
     margin: 0;
     padding: 0;
     display: flex;
@@ -8,11 +9,13 @@ html{
 body{
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, rgb(111, 40, 192), rgb(175, 148, 108));
+    background: linear-gradient( to bottom, rgb(111, 40, 192), rgb(175, 148, 108));
     background-size: cover;
+    justify-content: center;
+    
+    margin-left:10em;
     background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
+
 }
 
 /*perfil*/
@@ -28,11 +31,11 @@ h1{
 
 #contenedor{
     display: flex;
-    padding-bottom: 5%;
+    padding-bottom: 2em;
 }
 
 p{
-    font-size: 2em;
+    font-size: 1.3em;
     font-family: 'Times New Roman';
     margin: 100px;
     height: 80%;
@@ -52,9 +55,10 @@ p{
     justify-content: center;
     align-items: center;
     padding: 0;
-    background-color: rgb(111, 40, 192);
+    
     height: 5em;
     width: 100%;
+    border-bottom-right-radius: 20px;
     color: rgb(58, 16, 49);
 }
 
@@ -71,7 +75,7 @@ img, #imagenPerfil{
 }
 
 #textoPerfil{
-    opacity: 0;
+    opacity: 0.5;
     cursor: pointer;
     border-radius: 20px;
     width: 40em;
@@ -133,4 +137,117 @@ button{
     border-radius: 4px;
     height: 250%;
     width: 250%;
+}
+
+
+/*tablets*/
+@media screen and (max-width: 800px){
+    #contenedor{
+        margin-left:0;
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+    padding-bottom: 5%;
+    align-items: center;
+    margin: 0;
+}
+body{
+    margin-left:0;
+    min-height:100vw;
+}
+#proyecto{
+    margin-left:0;
+}
+    img, #imagenPerfil{
+    width: 12em;
+    height: 12em;
+    background-color: #ffffff;
+    border-radius: 30px;
+    border-top-left-radius: 0;
+    opacity: 0.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:1em;
+}
+ p{
+        margin:0.5em;
+        opacity:1;
+        font-size:2em;
+    }
+
+    #textoPerfil{
+    opacity: 0.9;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 85%;
+    height: 300em;
+    background-color: rgba(0, 0, 0, 0.26);
+    margin-left:0;
+    display: flex;
+    font-size:0.9em;
+}
+}
+
+
+
+
+
+
+/*celulares*/
+@media screen and (max-width: 500px){
+    #contenedor{
+    
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+    padding-bottom: 5%;
+    align-items: center;
+}
+
+    img, #imagenPerfil{
+    width: 10em;
+    height: 10em;
+    background-color: #ffffff;
+    border-radius: 30px;
+    border-top-left-radius: 0;
+    opacity: 0.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:1em;
+}
+
+    p{
+        margin:0.2em;
+    }
+
+    #textoPerfil{
+    opacity: 0.8;
+    cursor: pointer;
+    border-radius: 20px;
+    padding-left:1em;
+    width: 100%;
+    height: 20em;
+    background-color: rgba(0, 0, 0, 0.26);
+    margin-left:0;
+    padding-left: 0.2em;
+    display: flex;
+    font-size:0.9em;
+}
+
+    .tarjeta{
+        height:200%;
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .proyectos img{
+    opacity: 1;
+    display: flex;
+    border: 1px solid #a59292;
+    border-radius: 4px;
+    height: 200%;
+    width: 300%;
+}
 }
